@@ -3,7 +3,7 @@
 **One-liner:** Raw user activity events → behavioural profiles → usage segments → temporal change → future engagement (Increasing / Stable / Declining) → prioritised users with explanations.
 
 **Repo:** https://github.com/pritamexe2k4-cmyk/digital-behaviour-intelligence  
-**Status:** Docs + light stubs · **dataset not locked** (waiting A/B/C) · full train pipelines not started.
+**Status:** Docs + light stubs · **dataset LOCKED: Option A** (Kaggle `juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset`) · next: ingest + DQ · full train after ingest notebooks exist.
 
 Case study: social-media / Instagram-style **digital product usage** intelligence — **not** an addiction predictor, **not** a recommender.
 
@@ -16,6 +16,11 @@ Case study: social-media / Instagram-style **digital product usage** intelligenc
 3. **Change Detection** — historical vs recent windows → STABLE / INCREASING / DECLINING / SHIFT
 4. **Future Engagement Prediction** — supervised → Increasing / Stable / Declining
 5. **Prioritise** — ranked users + explanations (feature / segment / change drivers)
+
+## Dataset (locked)
+
+Kaggle: [juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset](https://www.kaggle.com/datasets/juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset)  
+Tables: Users + Sessions + Events. Download into `data/raw/` (gitignored). See [docs/DATASETS.md](docs/DATASETS.md).
 
 ## Stack
 
