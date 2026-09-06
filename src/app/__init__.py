@@ -1,0 +1,1 @@
+"""Entity report / dashboard entrypoints."""
