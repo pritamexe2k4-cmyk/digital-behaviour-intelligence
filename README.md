@@ -1,46 +1,61 @@
 # Digital Behaviour Intelligence
 
-**One-liner:** Raw user activity events → behavioural profiles → usage segments → temporal change → future engagement (Increasing / Stable / Declining) → prioritised users with explanations.
+Raw user activity events → behavioural profiles → usage segments → temporal change → future engagement (Increasing / Stable / Declining) → prioritised users with explanations.
 
-**Repo:** https://github.com/pritamexe2k4-cmyk/digital-behaviour-intelligence  
-**Status:** Docs + light stubs · **dataset LOCKED: Option A** (Kaggle `juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset`) · next: ingest + DQ · full train after ingest notebooks exist.
+**Status:** Designing & building / Phase 1 — docs + light stubs. Dataset locked (Option A). Next: ingest + data quality; full train after ingest notebooks exist.
 
-Case study: social-media / Instagram-style **digital product usage** intelligence — **not** an addiction predictor, **not** a recommender.
+Case study: social / product-usage intelligence — **not** an addiction predictor, **not** a recommender.
 
----
+## Pipeline
 
-## Pipeline (one connected system)
-
-1. **Behaviour Profiling** — event → user features (frequency, recency, intensity, diversity, consistency, trend)
-2. **Segmentation** — scale + cluster; interpret clusters after (no invented labels first)
-3. **Change Detection** — historical vs recent windows → STABLE / INCREASING / DECLINING / SHIFT
-4. **Future Engagement Prediction** — supervised → Increasing / Stable / Declining
-5. **Prioritise** — ranked users + explanations (feature / segment / change drivers)
+1. **Behaviour profiling** — frequency, recency, intensity, diversity, consistency, trend
+2. **Segmentation** — scale + cluster; interpret clusters after fitting
+3. **Change detection** — historical vs recent → STABLE / INCREASING / DECLINING / SHIFT
+4. **Future engagement** — supervised → Increasing / Stable / Declining
+5. **Prioritise** — ranked users + feature / segment / change drivers
 
 ## Dataset (locked)
 
-Kaggle: [juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset](https://www.kaggle.com/datasets/juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset)  
-Tables: Users + Sessions + Events. Download into `data/raw/` (gitignored). See [docs/DATASETS.md](docs/DATASETS.md).
+Kaggle: [juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset](https://www.kaggle.com/datasets/juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset)
+
+Tables: Users + Sessions + Events. Place downloads in `data/raw/` (gitignored). See [docs/DATASETS.md](docs/DATASETS.md).
 
 ## Stack
 
-Pandas · NumPy · scikit-learn · EDA · feature engineering · modular app (entity report + Streamlit or FastAPI + simple UI)
+Python · Pandas · NumPy · scikit-learn · modular `src/` (optional Streamlit or FastAPI UI later)
+
+## Getting started
+
+```bash
+git clone https://github.com/pritamexe2k4-cmyk/digital-behaviour-intelligence.git
+cd digital-behaviour-intelligence
+python -m venv .venv && source .venv/bin/activate
+# add deps as ingest notebooks land; package layout under src/
+```
+
+## Project layout
+
+```
+docs/           # product, architecture, datasets, build plan
+research/       # living log
+src/
+  data/         # loaders, DQ (stubs)
+  features/     # profiling (stubs)
+  models/       # cluster, change, predict (stubs)
+  app/          # UI / API (stubs)
+```
 
 ## Docs
 
 | Doc | Purpose |
 | --- | --- |
-| [docs/PRODUCT.md](docs/PRODUCT.md) | Product story, use / non-use |
+| [docs/PRODUCT.md](docs/PRODUCT.md) | Product story |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | End-to-end pipeline |
-| [docs/DATASETS.md](docs/DATASETS.md) | Candidates A/B/C — **await lock** |
 | [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md) | Milestones |
-| [docs/INTERVIEW.md](docs/INTERVIEW.md) | Talking points |
-| [research/research.md](research/research.md) | Living log |
+| [docs/DATASETS.md](docs/DATASETS.md) | Dataset notes |
 
-## Related
-
-Brum (voice RAG) is a **separate** repo — do not mix.
+Brum (voice RAG) is a separate repo — keep classical ML behaviour work here.
 
 ## License
 
-Private build / portfolio case study — license TBD.
+None yet — portfolio case study.
