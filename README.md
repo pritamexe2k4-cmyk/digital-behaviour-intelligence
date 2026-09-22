@@ -1,39 +1,33 @@
-# Digital Behaviour Intelligence
+# Digital Behaviour Intelligence (DBI)
 
-Raw user activity events → behavioural profiles → usage segments → temporal change → future engagement (Increasing / Stable / Declining) → prioritised users with explanations.
+Pipeline concept: raw user activity events → behavioural profiles → usage segments → temporal change → future engagement (Increasing / Stable / Declining) → prioritised users with explanations.
 
-**Status:** Designing & building / Phase 1 — docs + light stubs. Dataset locked (Option A). Next: ingest + data quality; full train after ingest notebooks exist.
+**Not** an addiction predictor. **Not** a recommender.
 
-Case study: social / product-usage intelligence — **not** an addiction predictor, **not** a recommender.
+## Why
 
-## Pipeline
-
-1. **Behaviour profiling** — frequency, recency, intensity, diversity, consistency, trend
-2. **Segmentation** — scale + cluster; interpret clusters after fitting
-3. **Change detection** — historical vs recent → STABLE / INCREASING / DECLINING / SHIFT
-4. **Future engagement** — supervised → Increasing / Stable / Declining
-5. **Prioritise** — ranked users + feature / segment / change drivers
-
-## Dataset (locked)
-
-Kaggle: [juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset](https://www.kaggle.com/datasets/juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset)
-
-Tables: Users + Sessions + Events. Place downloads in `data/raw/` (gitignored). See [docs/DATASETS.md](docs/DATASETS.md).
+Classical ML case study for product-usage / social behaviour analytics — entity-level features, clustering, change detection, and supervised engagement labels — with modular `src/` layout.
 
 ## Stack
 
-Python · Pandas · NumPy · scikit-learn · modular `src/` (optional Streamlit or FastAPI UI later)
+Python · Pandas · NumPy · scikit-learn · modular `src/` (optional Streamlit / FastAPI UI later)
 
-## Getting started
+## Dataset (locked)
+
+Kaggle: [mindfulness-app-synthetic-user-behavior-dataset](https://www.kaggle.com/datasets/juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset)
+
+Place downloads in `data/raw/` (gitignored). See [docs/DATASETS.md](docs/DATASETS.md).
+
+## Run
 
 ```bash
 git clone https://github.com/pritamexe2k4-cmyk/digital-behaviour-intelligence.git
 cd digital-behaviour-intelligence
 python -m venv .venv && source .venv/bin/activate
-# add deps as ingest notebooks land; package layout under src/
+# Add deps as ingest notebooks land; package layout under src/
 ```
 
-## Project layout
+## Layout
 
 ```
 docs/           # product, architecture, datasets, build plan
@@ -45,16 +39,9 @@ src/
   app/          # UI / API (stubs)
 ```
 
-## Docs
+## Status
 
-| Doc | Purpose |
-| --- | --- |
-| [docs/PRODUCT.md](docs/PRODUCT.md) | Product story |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | End-to-end pipeline |
-| [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md) | Milestones |
-| [docs/DATASETS.md](docs/DATASETS.md) | Dataset notes |
-
-Brum (voice RAG) is a separate repo — keep classical ML behaviour work here.
+**Designing & building / Phase 1** — docs + light stubs. Dataset locked. Next: ingest + data quality; full training after ingest notebooks exist.
 
 ## License
 
