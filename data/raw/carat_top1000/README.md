@@ -1,2 +1,2 @@
 # Carat Top 1000 Users Long-Term App Usage Dataset (Univ. of Helsinki)
-Expected: `carat-data-top1k-users-2014-to-2018-08-25.zip` (6,375,824,106 bytes, password-protected; password on https://www.cs.helsinki.fi/group/carat/data-sharing/ and in local `password.txt`). Resumable download: `scripts\download_datasets.ps1 -Only carat`. Details: [data/README.md](../../README.md). Contents gitignored.
+Expected: `carat-data-top1k-users-2014-to-2018-08-25.zip` (6,375,824,106 bytes, password-protected; password on https://www.cs.helsinki.fi/group/carat/data-sharing/ and in local `password.txt`). Resumable download: `scripts\download_datasets.ps1 -Only carat`. Details: [README → Dataset details](../../../README.md#dataset-details). Contents gitignored.

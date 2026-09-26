@@ -1,6 +1,6 @@
 # First project plan — real mobile app-usage data
 
-**Date:** 2026-09-26 · Source research: [mobile-app-usage-datasets.md](mobile-app-usage-datasets.md) · Data: [../data/README.md](../data/README.md)
+**Date:** 2026-09-26 · Source research: [mobile-app-usage-datasets.md](mobile-app-usage-datasets.md) · Data: [README → Datasets](../README.md#datasets)
 
 ## Project 1 (start here): Telefónica Mobile Phone Use Dataset
 

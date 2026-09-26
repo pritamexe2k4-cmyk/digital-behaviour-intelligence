@@ -12,7 +12,7 @@ Kaggle: [`juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset`](https
 
 ## Real-data option (added 2026-09-26) — real mobile app-usage datasets
 
-Option A stays the locked synthetic pipeline dataset. These **real** datasets are now downloaded locally (`data/raw/`, gitignored) as the real-data option. Full details: [data/README.md](../data/README.md); research: [research/mobile-app-usage-datasets.md](../research/mobile-app-usage-datasets.md).
+Option A stays the locked synthetic pipeline dataset. These **real** datasets are now downloaded locally (`data/raw/`, gitignored) as the real-data option. Full details: [README → Dataset details](../README.md#dataset-details); research: [research/mobile-app-usage-datasets.md](../research/mobile-app-usage-datasets.md).
 
 | Dataset | Real? | Use |
 |---|---|---|

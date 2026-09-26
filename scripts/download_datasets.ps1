@@ -15,7 +15,7 @@
 .NOTES
   Uses curl.exe (ships with Windows 10+) with -C - so interrupted downloads resume.
   DiversityOne is request-only and is NOT downloaded; see data/raw/diversityone/README.md.
-  By downloading you accept each dataset's terms (see data/README.md): research use only, cite the papers.
+  By downloading you accept each dataset's terms (see README.md > Datasets): research use only, cite the papers.
 #>
 param(
     [string[]]$Only = @('telefonica', 'lsapp', 'tsinghua', 'carat')
@@ -75,7 +75,7 @@ if ($Only -contains 'tsinghua') {
 }
 
 # 4. Carat Top 1000 Users (Univ. of Helsinki) - ~6.4 GB password-protected zip
-#    Password is published on https://www.cs.helsinki.fi/group/carat/data-sharing/ (see data/README.md)
+#    Password is published on https://www.cs.helsinki.fi/group/carat/data-sharing/ (see README.md > Datasets)
 if ($Only -contains 'carat') {
     Get-File 'https://www.cs.helsinki.fi/group/carat/data-sharing/carat-data-top1k-users-2014-to-2018-08-25.zip' `
              (Join-Path $Raw 'carat_top1000\carat-data-top1k-users-2014-to-2018-08-25.zip') 6375824106
