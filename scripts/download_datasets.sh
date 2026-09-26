@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Download the real mobile app-usage datasets into data/raw/ (gitignored).
 # Usage: scripts/download_datasets.sh [telefonica] [lsapp] [tsinghua] [carat]   (default: all)
-# Resumable (curl -C -). DiversityOne is request-only: see data/raw/diversityone/README.md
+# Resumable (curl -C -). DiversityOne is request-only: see README.md > Datasets > DiversityOne
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"; RAW="$ROOT/data/raw"
 WANT="${*:-telefonica lsapp tsinghua carat}"
@@ -17,8 +17,9 @@ get() { # url dest [expected_bytes]
 for d in $WANT; do case "$d" in
   telefonica) get "https://drive.usercontent.google.com/download?id=1tQA1jKm1qHIuwO-llNHSjwJrRc4teyI2&export=download&confirm=t" \
                   "$RAW/telefonica_mobile_phone_use/mpud.zip" 310938979 ;;
-  lsapp) get "https://github.com/aliannejadi/LSApp/raw/main/lsapp.tsv.gz" "$RAW/lsapp/lsapp.tsv.gz" 7329439
-         (cd "$RAW/lsapp" && tar xzf lsapp.tsv.gz) ;;   # really a tar.gz -> lsapp.tsv
+  lsapp) if [[ -f "$RAW/lsapp/lsapp.tsv" && "$(wc -c <"$RAW/lsapp/lsapp.tsv" | tr -d ' ')" == 178930494 ]]; then echo "OK (already extracted): $RAW/lsapp/lsapp.tsv"
+         else get "https://github.com/aliannejadi/LSApp/raw/main/lsapp.tsv.gz" "$RAW/lsapp/lsapp.tsv.gz" 7329439
+              (cd "$RAW/lsapp" && tar xzf lsapp.tsv.gz); fi ;;   # really a tar.gz -> lsapp.tsv
   tsinghua) b=https://fi.ee.tsinghua.edu.cn/appusage
             get "$b/App_usage_trace.rar" "$RAW/tsinghua_app_usage/App_usage_trace.rar" 25363073
             for f in App2Category.rar Categorys.rar base_poi.rar; do get "$b/$f" "$RAW/tsinghua_app_usage/$f"; done ;;

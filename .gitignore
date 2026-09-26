@@ -1,7 +1,5 @@
-# --- Data: raw datasets are large / licence-restricted; keep only README stubs ---
-data/raw/**
-!data/raw/**/
-!data/raw/**/README.md
+# --- Data: raw datasets are large / licence-restricted; nothing under data/raw/ is tracked ---
+data/raw/
 data/interim/
 data/processed/
 

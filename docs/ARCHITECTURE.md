@@ -24,18 +24,20 @@ Raw events (user_id, ts, event_type, ...)
    score users · surface drivers · entity report / dashboard
 ```
 
-## Planned layout (stubs OK now)
+## Layout
 
 ```
 digital-behaviour-intelligence/
+  data/raw/        # datasets (gitignored; see README → Datasets)
   docs/
   research/
+  scripts/         # download_datasets.ps1 / .sh
   src/
     data/          # loaders, DQ
     features/      # profiling
     models/        # cluster, change, predict
     app/           # Streamlit or FastAPI + UI
-  notebooks/       # optional EDA
+  notebooks/       # optional EDA (not created yet)
   README.md
 ```
 

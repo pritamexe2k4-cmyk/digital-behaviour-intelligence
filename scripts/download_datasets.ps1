@@ -14,7 +14,7 @@
 
 .NOTES
   Uses curl.exe (ships with Windows 10+) with -C - so interrupted downloads resume.
-  DiversityOne is request-only and is NOT downloaded; see data/raw/diversityone/README.md.
+  DiversityOne is request-only and is NOT downloaded; see README.md > Datasets > DiversityOne.
   By downloading you accept each dataset's terms (see README.md > Datasets): research use only, cite the papers.
 #>
 param(
@@ -57,10 +57,15 @@ if ($Only -contains 'telefonica') {
 # 2. LSApp (Aliannejadi et al., TOIS 2021) - the .tsv.gz is actually a tar.gz containing lsapp.tsv
 if ($Only -contains 'lsapp') {
     $dest = Join-Path $Raw 'lsapp\lsapp.tsv.gz'
+    $tsv  = Join-Path $Raw 'lsapp\lsapp.tsv'
+    if ((Test-Path $tsv) -and (Get-Item $tsv).Length -eq 178930494) {
+        Write-Host "OK (already extracted): $tsv"
+    } else {
     Get-File 'https://github.com/aliannejadi/LSApp/raw/main/lsapp.tsv.gz' $dest 7329439
     Push-Location (Split-Path -Parent $dest)
     try { & tar.exe -xzf 'lsapp.tsv.gz'; if ($LASTEXITCODE -ne 0) { throw 'tar extraction failed' } }  # yields lsapp.tsv
     finally { Pop-Location }
+    }
 }
 
 # 3. Tsinghua App Usage Dataset (Yu et al., IMWUT 2018) - RAR archives
@@ -81,4 +86,4 @@ if ($Only -contains 'carat') {
              (Join-Path $Raw 'carat_top1000\carat-data-top1k-users-2014-to-2018-08-25.zip') 6375824106
 }
 
-Write-Host 'Finished. DiversityOne must be requested manually: data/raw/diversityone/README.md'
+Write-Host 'Finished. DiversityOne must be requested manually: see README.md > Datasets > DiversityOne'

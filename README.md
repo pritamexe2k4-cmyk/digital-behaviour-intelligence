@@ -16,18 +16,21 @@ Python · Pandas · NumPy · scikit-learn · modular `src/` (optional Streamlit 
 
 Kaggle: [mindfulness-app-synthetic-user-behavior-dataset](https://www.kaggle.com/datasets/juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset)
 
-Place downloads in `data/raw/` (gitignored). See [docs/DATASETS.md](docs/DATASETS.md).
+Place downloads in `data/raw/` (gitignored). See [Datasets](#datasets).
 
 **Real datasets now available (2026-09-26):** real mobile app-usage datasets have been added as the real-data option alongside Option A — see **Datasets** below.
 
 ## Datasets
 
-Raw files live in `data/raw/<dataset>/` and are **gitignored** (only the small per-dataset `README.md` stubs are tracked). Reproduce the downloads with:
+Raw files live in `data/raw/<dataset>/` and are **gitignored** (nothing under `data/raw/` is tracked). Reproduce the downloads with:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\download_datasets.ps1            # all (Carat is ~6.4 GB)
 powershell -ExecutionPolicy Bypass -File scripts\download_datasets.ps1 -Only lsapp,tsinghua,telefonica
+powershell -ExecutionPolicy Bypass -File scripts\download_datasets.ps1 -Only carat   # resumable: re-run to continue
 ```
+
+Per-dataset flags: `-Only telefonica`, `-Only lsapp`, `-Only tsinghua`, `-Only carat` (combine with commas).
 
 `scripts/download_datasets.sh` does the same on Linux/macOS. Downloads are resumable and size-checked. Research notes: [research/mobile-app-usage-datasets.md](research/mobile-app-usage-datasets.md).
 
@@ -42,6 +45,23 @@ powershell -ExecutionPolicy Bypass -File scripts\download_datasets.ps1 -Only lsa
 
 All real datasets are **research use only**: cite the papers below, no commercial use, no re-identification attempts.
 
+**Real-data option (added 2026-09-26).** Option A stays the locked synthetic pipeline dataset; the real datasets are the real-data option. Intended use:
+
+| Dataset | Use |
+|---|---|
+| Mobile Phone Use (Telefónica) | **First real project** — person-day features, usage types, mood prediction ([plan](research/first-project-plan.md)) |
+| LSApp | Quick prototyping: sessions, next-app prediction |
+| Tsinghua App Usage | Spatio-temporal / POI-aware modelling |
+| Carat Top 1000 | Second project: long-term drift, India (MCC 404/405/406) vs other countries category mix |
+| DiversityOne | Request only (not downloaded) |
+
+Same pipeline story: events → sessions → features → segments → prediction. Synthetic Kaggle screen-time sets remain rejected (see [research](research/mobile-app-usage-datasets.md)).
+
+**Other options considered (from the 2026-09-06 lock):**
+- **B — eCommerce events:** Kaggle `mkechinov` ecommerce-events / multi-category — deferred.
+- **C — Hybrid:** deferred until the A pipeline is solid.
+- **Avoid:** pre-aggregated Instagram “1 row per user” tables — kills the event→profile interview story.
+
 ### Dataset details
 
 #### Mobile Phone Use Dataset (Pielot et al., Telefónica Research)
@@ -55,27 +75,36 @@ All real datasets are **research use only**: cite the papers below, no commercia
 - **Source:** https://github.com/aliannejadi/LSApp (`lsapp.tsv.gz`). Also IEEE DataPort DOI 10.21227/w17r-xx75.
 - **Citation:** M. Aliannejadi, H. Zamani, F. Crestani, W. B. Croft. *Context-aware Target Apps Selection and Recommendation for Enhancing Personal Mobile Assistants.* ACM TOIS 2021.
 - **Content:** 292 users; open/close/interaction events with `session_id`, 87 app names, 2017-09-09 → 2018-05-17; 3,658,589 rows (our count).
-- **Format:** despite the `.gz` name the file is a **tar.gz**; `tar xzf lsapp.tsv.gz` → `lsapp.tsv` (TSV). **Terms:** no licence file; research use with citation.
+- **Format:** despite the `.gz` name the file is a **tar.gz** (7,329,439 bytes); `tar xzf lsapp.tsv.gz` → `lsapp.tsv` (TSV, 178,930,494 bytes). The script skips the download if `lsapp.tsv` is already present, so the `.gz` can be deleted after extraction. **Terms:** no licence file; research use with citation.
 
 #### Tsinghua App Usage Dataset (Yu et al., FIB Lab)
 - **Source:** https://fi.ee.tsinghua.edu.cn/appusage/ — `App_usage_trace.rar`, `App2Category.rar`, `Categorys.rar`, `base_poi.rar`.
 - **Citation:** D. Yu, Y. Li, F. Xu, P. Zhang, V. Kostakos. *Smartphone App Usage Prediction Using Points of Interest.* IMWUT 2018. Must name "Tsinghua App Usage Dataset".
 - **Content:** 1,000 users, 1 week (Apr 2016), one large Chinese city; user, timestamp, base station, app ID, traffic bytes; 2,000 apps in 20 categories. Apps identified from **network traffic**, not foreground screen time.
-- **Format:** RAR (needs 7-Zip/WinRAR/`unrar`; left unextracted). **Terms:** research only, no commercial use, no re-identification.
+- **Format:** RAR (extract with 7-Zip / WinRAR / `unrar`; left unextracted). **Terms:** research only, no commercial use, no re-identification.
 
 #### Carat Top 1000 Users Long-Term App Usage Dataset (Univ. of Helsinki)
 - **Source:** https://www.cs.helsinki.fi/group/carat/data-sharing/ — `carat-data-top1k-users-2014-to-2018-08-25.zip`.
 - **Citation:** A. J. Oliner, A. P. Iyer, I. Stoica, E. Lagerspetz, S. Tarkoma. *Carat: Collaborative Energy Diagnosis for Mobile Devices.* SenSys 2013. Must name "Carat Top 1000 Users Long-Term App Usage Dataset".
 - **Content:** 1,000 longest-running Carat users, 2014 → Aug 2018, 18,146,042 records, 100+ countries (MCC + timezone; India = MCC 404/405/406); battery-change–triggered samples listing running apps with foreground/background priority; top 10,000 apps; Play-category map.
-- **Format:** password-protected zip of JSON; the password is printed on the source page (a local copy is kept in `data/raw/carat_top1000/password.txt`, gitignored). Tools: github.com/carat-project/carat-dataset-tools.
+- **Format:** password-protected zip of JSON; the password is printed on the source page (a local copy is kept in `data/raw/carat_top1000/password.txt`, gitignored). Download is resumable: re-run `scripts\download_datasets.ps1 -Only carat`. Tools: github.com/carat-project/carat-dataset-tools.
 - **Terms:** research only; commercial use prohibited; no re-identification.
 - **Caveat:** sparse snapshots, not true screen time — use for relative category mix / long-term drift.
 
-#### DiversityOne (Univ. of Trento / WeNet) — request only
-- See [data/raw/diversityone/README.md](data/raw/diversityone/README.md). 782 students, 8 countries incl. India, 4 weeks, running apps every 5 s. Not downloaded.
+#### DiversityOne (Univ. of Trento / WeNet) — request only (not downloaded)
+- **What:** 782 college students in 8 countries (China, Denmark, **India** [Amrita Vishwa Vidyapeetham], Italy, Mexico, Mongolia, Paraguay, UK), 4 weeks, 26 sensor types, 350K+ self-reports. The app-usage bundle includes *Running Applications* sampled every 5 s, notifications, music playback, headset status. The only dataset found with per-app logs for Indian users alongside other countries, collected the same way.
+- **Links:** project https://datascientia.eu/projects/diversityone/ · docs https://datascientiafoundation.github.io/docs/LivePeople/papers/diversityone.html · paper (IMWUT) https://arxiv.org/abs/2502.03347
+- **How to request:**
+  1. Open the project/docs page above and follow the data-access (request) procedure.
+  2. You need an **institutional email**, a short **research proposal** (e.g. "per-app usage patterns and mood, India vs other countries") and the **bundle identifier** of the app-usage bundle you want.
+  3. Approved users receive **Parquet** files. Redistribution is not allowed — keep them under `data/raw/diversityone/` (gitignored).
+- **Note:** independent researchers may not qualify on their own; an academic affiliation or collaborator helps.
 
 #### Mindfulness App Synthetic User Behavior Dataset (Option A, synthetic)
-- Kaggle `juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset` — see [docs/DATASETS.md](docs/DATASETS.md) and "Dataset (locked, synthetic)" above. **Synthetic**; kept as the original pipeline dataset.
+- Kaggle [`juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset`](https://www.kaggle.com/datasets/juliasavlepova/mindfulness-app-synthetic-user-behavior-dataset) — see "Dataset (locked, synthetic)" above. **Synthetic**; kept as the original pipeline dataset (locked 2026-09-06).
+- Event-level: **Users + Sessions + Events** (multi-table joins); primary source for DBI.
+- Framing: digital **product usage** case study (social-media transferable story) — **not** addiction prediction.
+- Local download: `data/raw/` under this repo (gitignored) or Desktop `digital-behaviour-intelligence/data/raw/`.
 
 ## Research
 
@@ -95,7 +124,7 @@ python -m venv .venv && source .venv/bin/activate
 ## Layout
 
 ```
-data/raw/       # datasets (gitignored; per-dataset README stubs)
+data/raw/       # datasets (gitignored)
 docs/           # product, architecture, datasets, build plan
 research/       # living log + dataset research + project plan
 scripts/        # download_datasets.ps1 / .sh

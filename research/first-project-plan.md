@@ -28,5 +28,5 @@ Notes: app → category mapping needs to be built (Play Store categories); count
 - 6.4 GB zipped JSON → chunked reading or Spark (carat-project/carat-dataset-tools).
 
 ## In parallel
-- Request **DiversityOne** (India + 7 countries, per-app logs) — see [../data/raw/diversityone/README.md](../data/raw/diversityone/README.md).
+- Request **DiversityOne** (India + 7 countries, per-app logs) — see [README → DiversityOne](../README.md#diversityone-univ-of-trento--wenet--request-only-not-downloaded).
 - LSApp (7 MB) is the quick fallback for prototyping sessionisation / next-app prediction.
