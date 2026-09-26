@@ -14,3 +14,5 @@
 - 2026-09-06: Researchy briefed Spider; repo + docs pack created; Brum stays separate.
 
 - 2026-09-06: Preetam locked Option A; B/C deferred; next = ingest + DQ plan/notebooks before full train.
+
+- 2026-09-26: Researched real mobile app-usage / screen-time datasets → [mobile-app-usage-datasets.md](mobile-app-usage-datasets.md). Downloaded Telefónica Mobile Phone Use, LSApp, Tsinghua App Usage into `data/raw/` and started the 6.4 GB Carat Top-1000 download (resumable via `scripts/download_datasets.ps1 -Only carat`) (gitignored; see [../data/README.md](../data/README.md)); DiversityOne is request-only. Real data added as the real-data option alongside Option A. First project plan → [first-project-plan.md](first-project-plan.md) (Telefónica first, Carat second).

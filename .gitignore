@@ -1,0 +1,31 @@
+# --- Data: raw datasets are large / licence-restricted; keep only README stubs ---
+data/raw/**
+!data/raw/**/
+!data/raw/**/README.md
+data/interim/
+data/processed/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.env
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
